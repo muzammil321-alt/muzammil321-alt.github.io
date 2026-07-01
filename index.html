@@ -1,0 +1,1859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Engineer Portfolio | Building Intelligent Systems</title>
+  <meta name="description" content="Senior AI Engineer specializing in AI Agents, LLM Applications, Automation, and Full Stack Development. Building cutting-edge AI products for enterprises and startups." />
+  <meta name="keywords" content="AI Engineer, Machine Learning, LLM, AI Agents, Automation, Full Stack Developer" />
+  <meta property="og:title" content="AI Engineer Portfolio" />
+  <meta property="og:description" content="Building intelligent AI systems that transform businesses." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --black: #050505;
+      --navy: #081229;
+      --blue: #00C8FF;
+      --purple: #7A5FFF;
+      --cyan: #00FFD1;
+      --white: #F0F4FF;
+      --glass: rgba(255,255,255,0.04);
+      --glass-border: rgba(255,255,255,0.08);
+      --text-muted: rgba(240,244,255,0.5);
+      --glow-blue: 0 0 40px rgba(0,200,255,0.3);
+      --glow-purple: 0 0 40px rgba(122,95,255,0.3);
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+    ::selection { background: var(--purple); color: #fff; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
+
+    /* ── LOADER ── */
+    #loader {
+      position: fixed; inset: 0; z-index: 9999;
+      background: var(--black);
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      transition: opacity 0.6s ease, visibility 0.6s ease;
+    }
+    #loader.hidden { opacity: 0; visibility: hidden; }
+    .loader-logo {
+      font-size: 2rem; font-weight: 800; letter-spacing: -0.05em;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    .loader-bar {
+      width: 200px; height: 2px; background: rgba(255,255,255,0.1);
+      margin-top: 24px; border-radius: 2px; overflow: hidden;
+    }
+    .loader-bar-inner {
+      height: 100%; width: 0%;
+      background: linear-gradient(90deg, var(--blue), var(--purple));
+      border-radius: 2px;
+      animation: loadBar 1.8s ease forwards;
+    }
+    @keyframes loadBar { to { width: 100%; } }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.6} }
+
+    /* ── CURSOR ── */
+    #cursor {
+      position: fixed; width: 20px; height: 20px;
+      border: 1.5px solid var(--blue);
+      border-radius: 50%; pointer-events: none; z-index: 9998;
+      transform: translate(-50%,-50%);
+      transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, opacity 0.3s ease;
+      mix-blend-mode: normal;
+    }
+    #cursor-glow {
+      position: fixed; width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(0,200,255,0.06) 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none; z-index: 1;
+      transform: translate(-50%,-50%);
+      transition: transform 0.3s ease;
+    }
+    body:hover #cursor { opacity: 1; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 20px 5%;
+      display: flex; align-items: center; justify-content: space-between;
+      backdrop-filter: blur(20px);
+      background: rgba(5,5,5,0.7);
+      border-bottom: 1px solid var(--glass-border);
+      transition: padding 0.3s ease;
+    }
+    nav.scrolled { padding: 14px 5%; }
+    .nav-logo {
+      font-size: 1.3rem; font-weight: 800; letter-spacing: -0.04em;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      text-decoration: none;
+    }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      color: var(--text-muted); text-decoration: none; font-size: 0.875rem;
+      font-weight: 500; letter-spacing: 0.02em;
+      transition: color 0.2s ease;
+      position: relative;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -4px; left: 0; right: 0;
+      height: 1px; background: var(--blue);
+      transform: scaleX(0); transition: transform 0.2s ease;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      padding: 8px 20px; border-radius: 6px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff; text-decoration: none; font-size: 0.85rem; font-weight: 600;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+    }
+    .nav-cta:hover { opacity: 0.85; transform: translateY(-1px); }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { display: block; width: 24px; height: 2px; background: var(--white); border-radius: 2px; transition: 0.3s; }
+
+    /* ── HERO ── */
+    #hero {
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden;
+      padding: 120px 5% 80px;
+    }
+    .hero-bg {
+      position: absolute; inset: 0; z-index: 0;
+      background: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(0,200,255,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 50% at 80% 80%, rgba(122,95,255,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse 50% 40% at 10% 90%, rgba(0,255,209,0.06) 0%, transparent 60%),
+                  var(--navy);
+    }
+    #particles-canvas { position: absolute; inset: 0; z-index: 1; }
+    .hero-content { position: relative; z-index: 2; text-align: center; max-width: 900px; }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 6px 16px; border-radius: 100px;
+      border: 1px solid rgba(0,200,255,0.3);
+      background: rgba(0,200,255,0.06);
+      font-size: 0.8rem; font-weight: 500; color: var(--blue);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 28px;
+      animation: fadeInDown 0.8s ease both;
+    }
+    .hero-badge::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--blue); animation: blink 1.5s infinite; }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+    .hero-title {
+      font-size: clamp(2.4rem, 5.5vw, 5rem);
+      font-weight: 900; line-height: 1.08;
+      letter-spacing: -0.04em;
+      margin-bottom: 8px;
+      animation: fadeInUp 0.8s 0.1s ease both;
+    }
+    .hero-title span {
+      background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 50%, var(--cyan) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-size: 200% auto;
+      animation: gradientShift 4s linear infinite;
+    }
+    @keyframes gradientShift { to { background-position: 200% center; } }
+    .hero-roles {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-weight: 600; color: var(--text-muted);
+      margin-bottom: 20px;
+      animation: fadeInUp 0.8s 0.2s ease both;
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .hero-typing { color: var(--cyan); }
+    .cursor-blink { animation: blink 0.8s infinite; }
+    .hero-sub {
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      color: var(--text-muted); line-height: 1.7;
+      max-width: 680px; margin: 0 auto 40px;
+      animation: fadeInUp 0.8s 0.3s ease both;
+    }
+    .hero-btns {
+      display: flex; flex-wrap: wrap; gap: 14px;
+      justify-content: center; margin-bottom: 60px;
+      animation: fadeInUp 0.8s 0.4s ease both;
+    }
+    .btn-primary {
+      padding: 13px 28px; border-radius: 8px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff; font-weight: 600; font-size: 0.9rem;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: var(--glow-blue); }
+    .btn-secondary {
+      padding: 13px 28px; border-radius: 8px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass); backdrop-filter: blur(10px);
+      color: var(--white); font-weight: 600; font-size: 0.9rem;
+      text-decoration: none; cursor: pointer;
+      transition: border-color 0.2s ease, transform 0.2s ease, background 0.2s ease;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover {
+      border-color: var(--blue); transform: translateY(-2px);
+      background: rgba(0,200,255,0.06);
+    }
+    .hero-stats {
+      display: flex; gap: 40px; justify-content: center;
+      animation: fadeInUp 0.8s 0.5s ease both;
+    }
+    .hero-stat { text-align: center; }
+    .hero-stat-num {
+      font-size: 1.8rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero-stat-label { font-size: 0.75rem; color: var(--text-muted); letter-spacing: 0.05em; }
+    /* Floating elements */
+    .float-el {
+      position: absolute; z-index: 2;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem; color: rgba(0,200,255,0.5);
+      background: rgba(0,200,255,0.05); border: 1px solid rgba(0,200,255,0.15);
+      padding: 8px 12px; border-radius: 6px;
+      animation: float 6s ease-in-out infinite;
+      white-space: nowrap;
+    }
+    .float-el:nth-child(2) { animation-delay: -2s; }
+    .float-el:nth-child(3) { animation-delay: -4s; animation-duration: 7s; }
+    @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-16px)} }
+    .fe1 { top: 20%; left: 3%; }
+    .fe2 { top: 30%; right: 3%; }
+    .fe3 { bottom: 20%; left: 5%; }
+    /* Neural Net SVG */
+    .neural-svg { position: absolute; top: 50%; right: 5%; transform: translateY(-50%); opacity: 0.15; z-index: 1; width: 280px; }
+    @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+    @keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ── SECTIONS ── */
+    section { padding: 100px 5%; }
+    .section-eyebrow {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem; font-weight: 500;
+      color: var(--blue); letter-spacing: 0.15em; text-transform: uppercase;
+      margin-bottom: 12px; display: block;
+    }
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800; letter-spacing: -0.04em;
+      line-height: 1.1; margin-bottom: 16px;
+    }
+    .section-sub {
+      color: var(--text-muted); font-size: 1rem; max-width: 560px;
+      line-height: 1.7; margin-bottom: 60px;
+    }
+    .divider {
+      width: 48px; height: 3px; border-radius: 2px;
+      background: linear-gradient(90deg, var(--blue), var(--purple));
+      margin-bottom: 16px;
+    }
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* ── GLASS CARD ── */
+    .glass-card {
+      background: var(--glass);
+      border: 1px solid var(--glass-border);
+      border-radius: 16px;
+      backdrop-filter: blur(20px);
+      transition: border-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .glass-card:hover {
+      border-color: rgba(0,200,255,0.2);
+      transform: translateY(-4px);
+      box-shadow: var(--glow-blue);
+    }
+
+    /* ── ABOUT ── */
+    #about { background: linear-gradient(180deg, var(--black) 0%, rgba(8,18,41,0.5) 100%); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+    .about-left {}
+    .about-avatar {
+      width: 260px; height: 260px; border-radius: 24px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 6rem; margin-bottom: 24px;
+      box-shadow: var(--glow-purple);
+      position: relative; overflow: hidden;
+    }
+    .about-avatar::before {
+      content: ''; position: absolute; inset: 2px;
+      background: var(--navy); border-radius: 22px;
+      z-index: 0;
+    }
+    .about-avatar span { position: relative; z-index: 1; }
+    .about-roles {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 20px;
+    }
+    .role-tag {
+      padding: 5px 14px; border-radius: 100px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass); font-size: 0.8rem;
+      color: var(--text-muted); font-weight: 500;
+    }
+    .about-text p { color: var(--text-muted); line-height: 1.8; margin-bottom: 16px; font-size: 0.975rem; }
+    .expertise-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 28px; }
+    .expertise-item {
+      display: flex; align-items: center; gap: 8px;
+      font-size: 0.85rem; color: var(--text-muted);
+    }
+    .expertise-item::before { content: '▸'; color: var(--blue); font-size: 0.7rem; }
+
+    /* ── SKILLS ── */
+    #skills { background: var(--black); }
+    .skills-categories { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+    .skill-category {
+      padding: 28px;
+    }
+    .skill-cat-icon { font-size: 1.8rem; margin-bottom: 16px; }
+    .skill-cat-title { font-size: 1rem; font-weight: 700; margin-bottom: 20px; color: var(--white); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .skill-tag {
+      padding: 5px 12px; border-radius: 6px;
+      background: rgba(0,200,255,0.06);
+      border: 1px solid rgba(0,200,255,0.15);
+      font-size: 0.78rem; font-weight: 500;
+      color: var(--blue); font-family: 'JetBrains Mono', monospace;
+      transition: background 0.2s ease, border-color 0.2s ease;
+    }
+    .skill-tag:hover { background: rgba(0,200,255,0.12); border-color: rgba(0,200,255,0.4); }
+    .skill-tag.purple {
+      background: rgba(122,95,255,0.06); border-color: rgba(122,95,255,0.15); color: #A08BFF;
+    }
+    .skill-tag.purple:hover { background: rgba(122,95,255,0.12); border-color: rgba(122,95,255,0.4); }
+    .skill-tag.cyan {
+      background: rgba(0,255,209,0.06); border-color: rgba(0,255,209,0.15); color: var(--cyan);
+    }
+
+    /* ── SERVICES ── */
+    #services { background: linear-gradient(180deg, rgba(8,18,41,0.3) 0%, var(--black) 100%); }
+    .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; }
+    .service-card {
+      padding: 32px 24px; text-align: center;
+    }
+    .service-icon {
+      width: 60px; height: 60px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(0,200,255,0.15), rgba(122,95,255,0.15));
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin: 0 auto 18px;
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .service-title { font-size: 1rem; font-weight: 700; margin-bottom: 10px; }
+    .service-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── PROJECTS ── */
+    #projects { background: var(--black); }
+    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 24px; }
+    .project-card { overflow: hidden; }
+    .project-thumb {
+      height: 180px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3.5rem; border-radius: 12px 12px 0 0;
+      position: relative; overflow: hidden;
+    }
+    .project-thumb::before {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(0,200,255,0.2), rgba(122,95,255,0.2));
+    }
+    .project-thumb-bg1 { background: linear-gradient(135deg, #0a1628, #1a0a2e); }
+    .project-thumb-bg2 { background: linear-gradient(135deg, #0a1a1a, #0a0a2a); }
+    .project-thumb-bg3 { background: linear-gradient(135deg, #1a1a0a, #0a0a1a); }
+    .project-body { padding: 24px; }
+    .project-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 8px; }
+    .project-desc { font-size: 0.85rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+    .project-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 20px; }
+    .stack-badge {
+      padding: 3px 10px; border-radius: 4px;
+      font-size: 0.72rem; font-weight: 600;
+      background: rgba(122,95,255,0.1); border: 1px solid rgba(122,95,255,0.2);
+      color: #A08BFF; font-family: 'JetBrains Mono', monospace;
+    }
+    .project-links { display: flex; gap: 10px; }
+    .proj-btn {
+      padding: 7px 16px; border-radius: 6px;
+      font-size: 0.8rem; font-weight: 600;
+      text-decoration: none; cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+    .proj-btn:hover { transform: translateY(-1px); }
+    .proj-btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      color: #fff; border: none;
+    }
+    .proj-btn-secondary {
+      background: var(--glass); border: 1px solid var(--glass-border);
+      color: var(--white);
+    }
+    .project-metrics {
+      display: flex; gap: 16px; margin-bottom: 16px;
+    }
+    .metric { text-align: center; }
+    .metric-val { font-size: 1.1rem; font-weight: 700; color: var(--blue); font-family: 'JetBrains Mono', monospace; }
+    .metric-label { font-size: 0.7rem; color: var(--text-muted); }
+
+    /* ── AI WORKFLOW ── */
+    #workflow { background: linear-gradient(180deg, rgba(8,18,41,0.5) 0%, var(--black) 100%); }
+    .workflow-container { display: flex; flex-direction: column; align-items: center; gap: 0; max-width: 600px; margin: 0 auto; }
+    .workflow-node {
+      width: 100%; padding: 18px 28px;
+      border-radius: 12px; text-align: center;
+      position: relative;
+    }
+    .workflow-node-label { font-size: 0.7rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; }
+    .workflow-node-title { font-size: 1rem; font-weight: 700; }
+    .workflow-node.accent .workflow-node-title { color: var(--blue); }
+    .workflow-arrow {
+      width: 2px; height: 40px;
+      background: linear-gradient(180deg, var(--blue), var(--purple));
+      position: relative; margin: 0 auto;
+    }
+    .workflow-arrow::after {
+      content: ''; position: absolute; bottom: 0; left: 50%; transform: translateX(-50%);
+      border: 6px solid transparent; border-top-color: var(--purple);
+    }
+    .workflow-pulse {
+      position: absolute; width: 8px; height: 8px; border-radius: 50%;
+      background: var(--blue); top: 0; left: 50%; transform: translateX(-50%);
+      animation: flowDown 2s linear infinite;
+    }
+    @keyframes flowDown { from{top:0;opacity:1} to{top:100%;opacity:0} }
+
+    /* ── TIMELINE ── */
+    #experience { background: var(--black); }
+    .timeline { position: relative; padding-left: 40px; }
+    .timeline::before {
+      content: ''; position: absolute; left: 14px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(180deg, var(--blue), var(--purple), transparent);
+    }
+    .timeline-item { position: relative; margin-bottom: 40px; }
+    .timeline-dot {
+      position: absolute; left: -33px; top: 6px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      border: 2px solid var(--black);
+      box-shadow: 0 0 12px rgba(0,200,255,0.5);
+    }
+    .timeline-year {
+      font-size: 0.75rem; font-family: 'JetBrains Mono', monospace;
+      color: var(--blue); font-weight: 600; margin-bottom: 6px;
+    }
+    .timeline-title { font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; }
+    .timeline-desc { font-size: 0.875rem; color: var(--text-muted); line-height: 1.6; }
+
+    /* ── TECH STACK ── */
+    #techstack { background: linear-gradient(180deg, rgba(8,18,41,0.3) 0%, var(--black) 100%); }
+    .tech-marquee-wrapper { overflow: hidden; position: relative; }
+    .tech-marquee-wrapper::before,
+    .tech-marquee-wrapper::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 100px; z-index: 2;
+    }
+    .tech-marquee-wrapper::before { left: 0; background: linear-gradient(90deg, var(--black), transparent); }
+    .tech-marquee-wrapper::after { right: 0; background: linear-gradient(-90deg, var(--black), transparent); }
+    .tech-marquee { display: flex; gap: 20px; animation: marquee 30s linear infinite; width: max-content; }
+    .tech-marquee:hover { animation-play-state: paused; }
+    .tech-marquee2 { animation-direction: reverse; animation-duration: 25s; margin-top: 16px; }
+    @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+    .tech-chip {
+      padding: 12px 20px; border-radius: 10px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      display: flex; align-items: center; gap: 10px;
+      white-space: nowrap; font-size: 0.85rem; font-weight: 600;
+      transition: border-color 0.2s ease;
+    }
+    .tech-chip:hover { border-color: var(--blue); }
+    .tech-chip-icon { font-size: 1.3rem; }
+
+    /* ── TESTIMONIALS ── */
+    #testimonials { background: var(--black); }
+    .testimonials-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .testimonial-card { padding: 32px; }
+    .testimonial-stars { color: #FFB800; font-size: 0.9rem; margin-bottom: 16px; }
+    .testimonial-text { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 24px; font-style: italic; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-avatar {
+      width: 44px; height: 44px; border-radius: 50%;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 700; font-size: 0.9rem;
+    }
+    .testimonial-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 2px; }
+    .testimonial-role { font-size: 0.78rem; color: var(--text-muted); }
+
+    /* ── ACHIEVEMENTS ── */
+    #achievements { background: linear-gradient(180deg, rgba(8,18,41,0.5) 0%, var(--black) 100%); }
+    .achievements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 20px; }
+    .achievement-card { padding: 32px 20px; text-align: center; }
+    .achievement-num {
+      font-size: 2.8rem; font-weight: 900; letter-spacing: -0.04em;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      display: block; font-family: 'JetBrains Mono', monospace;
+    }
+    .achievement-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 6px; font-weight: 500; }
+
+    /* ── GITHUB ── */
+    #github { background: var(--black); }
+    .github-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 16px; margin-bottom: 40px; }
+    .github-stat { padding: 28px; text-align: center; }
+    .github-stat-num {
+      font-size: 2.2rem; font-weight: 800;
+      font-family: 'JetBrains Mono', monospace;
+      background: linear-gradient(135deg, var(--blue), var(--cyan));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .github-stat-label { font-size: 0.8rem; color: var(--text-muted); margin-top: 4px; }
+    .contrib-graph {
+      padding: 28px; border-radius: 16px;
+      border: 1px solid var(--glass-border);
+      background: var(--glass);
+      overflow: hidden;
+    }
+    .contrib-title { font-size: 0.85rem; font-weight: 600; margin-bottom: 20px; color: var(--text-muted); }
+    .contrib-cells { display: grid; grid-template-columns: repeat(53, 1fr); gap: 3px; }
+    .contrib-cell {
+      width: 100%; aspect-ratio: 1;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.05);
+    }
+    .contrib-cell.l1 { background: rgba(0,200,255,0.15); }
+    .contrib-cell.l2 { background: rgba(0,200,255,0.35); }
+    .contrib-cell.l3 { background: rgba(0,200,255,0.6); }
+    .contrib-cell.l4 { background: rgba(0,200,255,0.85); }
+
+    /* ── BLOG ── */
+    #blog { background: linear-gradient(180deg, rgba(8,18,41,0.3) 0%, var(--black) 100%); }
+    .blog-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px; }
+    .blog-card { overflow: hidden; }
+    .blog-header { height: 120px; display: flex; align-items: center; justify-content: center; font-size: 2.5rem; border-radius: 12px 12px 0 0; }
+    .blog-bg1 { background: linear-gradient(135deg, rgba(0,200,255,0.1), rgba(122,95,255,0.1)); }
+    .blog-bg2 { background: linear-gradient(135deg, rgba(122,95,255,0.1), rgba(0,255,209,0.1)); }
+    .blog-bg3 { background: linear-gradient(135deg, rgba(0,255,209,0.1), rgba(0,200,255,0.1)); }
+    .blog-body { padding: 24px; }
+    .blog-tag {
+      display: inline-block; padding: 3px 10px; border-radius: 4px;
+      background: rgba(0,200,255,0.08); border: 1px solid rgba(0,200,255,0.2);
+      font-size: 0.72rem; font-weight: 600; color: var(--blue);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px;
+    }
+    .blog-title { font-size: 0.98rem; font-weight: 700; margin-bottom: 10px; line-height: 1.4; }
+    .blog-excerpt { font-size: 0.84rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 16px; }
+    .blog-meta { font-size: 0.78rem; color: var(--text-muted); display: flex; gap: 12px; }
+    .blog-read-more {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 0.82rem; font-weight: 600; color: var(--blue);
+      text-decoration: none; margin-top: 14px;
+      transition: gap 0.2s ease;
+    }
+    .blog-read-more:hover { gap: 10px; }
+
+    /* ── CONTACT ── */
+    #contact { background: var(--black); }
+    .contact-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 60px; align-items: start; }
+    .contact-info-item { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+    .contact-icon {
+      width: 44px; height: 44px; border-radius: 10px;
+      background: linear-gradient(135deg, rgba(0,200,255,0.15), rgba(122,95,255,0.15));
+      border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; flex-shrink: 0;
+    }
+    .contact-info-label { font-size: 0.75rem; color: var(--text-muted); margin-bottom: 2px; }
+    .contact-info-value { font-size: 0.9rem; font-weight: 600; }
+    .contact-form { display: flex; flex-direction: column; gap: 16px; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-field { display: flex; flex-direction: column; gap: 6px; }
+    .form-label { font-size: 0.78rem; font-weight: 600; color: var(--text-muted); letter-spacing: 0.05em; }
+    .form-input, .form-select, .form-textarea {
+      padding: 12px 16px; border-radius: 8px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      color: var(--white); font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      outline: none; transition: border-color 0.2s ease;
+      width: 100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--blue); box-shadow: 0 0 0 3px rgba(0,200,255,0.1);
+    }
+    .form-select option { background: #0a0f1e; }
+    .form-textarea { resize: vertical; min-height: 120px; }
+    .form-btns { display: flex; gap: 12px; margin-top: 8px; }
+    .success-msg { display: none; padding: 14px; border-radius: 8px; background: rgba(0,200,255,0.08); border: 1px solid rgba(0,200,255,0.2); color: var(--blue); font-size: 0.875rem; text-align: center; margin-top: 12px; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--glass-border);
+      padding: 60px 5% 40px;
+      background: var(--black);
+    }
+    .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; margin-bottom: 48px; }
+    .footer-brand-name {
+      font-size: 1.4rem; font-weight: 800; letter-spacing: -0.04em;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .footer-tagline { font-size: 0.875rem; color: var(--text-muted); margin-top: 8px; max-width: 280px; line-height: 1.6; }
+    .footer-links { display: flex; flex-direction: column; gap: 12px; }
+    .footer-links h4 { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted); margin-bottom: 4px; }
+    .footer-links a { color: var(--text-muted); text-decoration: none; font-size: 0.875rem; transition: color 0.2s; }
+    .footer-links a:hover { color: var(--blue); }
+    .footer-socials { display: flex; gap: 12px; }
+    .social-btn {
+      width: 42px; height: 42px; border-radius: 10px;
+      background: var(--glass); border: 1px solid var(--glass-border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.1rem; text-decoration: none;
+      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    }
+    .social-btn:hover { border-color: var(--blue); background: rgba(0,200,255,0.08); transform: translateY(-2px); }
+    .footer-bottom { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--glass-border); padding-top: 24px; }
+    .footer-copy { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-made { font-size: 0.8rem; color: var(--text-muted); }
+    .footer-made span { color: var(--blue); }
+
+    /* ── SCROLL ANIMATIONS ── */
+    .reveal { opacity: 0; transform: translateY(32px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .contact-grid { grid-template-columns: 1fr; }
+      .footer-top { flex-direction: column; }
+      .form-row { grid-template-columns: 1fr; }
+      .neural-svg, .float-el { display: none; }
+      .hero-stats { flex-wrap: wrap; gap: 24px; }
+      nav ul { display: none; }
+      .nav-hamburger { display: flex; }
+    }
+    @media (max-width: 600px) {
+      .projects-grid { grid-template-columns: 1fr; }
+      .hero-btns { flex-direction: column; align-items: center; }
+      section { padding: 70px 5%; }
+    }
+
+    /* ── BACK TO TOP ── */
+    #back-top {
+      position: fixed; bottom: 32px; right: 32px; z-index: 500;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: linear-gradient(135deg, var(--blue), var(--purple));
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; font-size: 1.1rem;
+      opacity: 0; transform: translateY(20px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+      border: none; color: #fff;
+    }
+    #back-top.visible { opacity: 1; transform: translateY(0); }
+    #back-top:hover { filter: brightness(1.15); }
+
+    /* Mobile nav */
+    .mobile-nav {
+      display: none; position: fixed; inset: 0; z-index: 999;
+      background: rgba(5,5,5,0.97); backdrop-filter: blur(20px);
+      flex-direction: column; align-items: center; justify-content: center; gap: 28px;
+    }
+    .mobile-nav.open { display: flex; }
+    .mobile-nav a { color: var(--white); text-decoration: none; font-size: 1.4rem; font-weight: 700; }
+    .mobile-nav-close { position: absolute; top: 24px; right: 24px; font-size: 1.5rem; cursor: pointer; background: none; border: none; color: var(--white); }
+
+    /* Available for hire banner */
+    .available-banner {
+      position: fixed; top: 80px; left: 50%; transform: translateX(-50%);
+      z-index: 900; background: rgba(0,200,255,0.08); border: 1px solid rgba(0,200,255,0.25);
+      padding: 8px 20px; border-radius: 100px; font-size: 0.78rem; font-weight: 500;
+      color: var(--blue); display: flex; align-items: center; gap: 8px;
+      backdrop-filter: blur(10px); white-space: nowrap;
+      animation: slideDown 0.5s 2s ease both;
+    }
+    @keyframes slideDown { from{opacity:0;transform:translateX(-50%) translateY(-10px)} to{opacity:1;transform:translateX(-50%) translateY(0)} }
+    .avail-dot { width: 6px; height: 6px; border-radius: 50%; background: #00FF88; animation: blink 1.5s infinite; }
+  </style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-logo">AI.Engineer</div>
+  <div class="loader-bar"><div class="loader-bar-inner"></div></div>
+</div>
+
+<!-- CURSOR -->
+<div id="cursor"></div>
+<div id="cursor-glow"></div>
+
+<!-- AVAILABLE BANNER -->
+<div class="available-banner">
+  <span class="avail-dot"></span>
+  Available for new projects & collaborations
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#hero" class="nav-logo">AI.Engineer</a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#experience">Experience</a></li>
+    <li><a href="#blog">Blog</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Hire Me →</a>
+  <div class="nav-hamburger" onclick="document.querySelector('.mobile-nav').classList.add('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<!-- MOBILE NAV -->
+<div class="mobile-nav">
+  <button class="mobile-nav-close" onclick="document.querySelector('.mobile-nav').classList.remove('open')">✕</button>
+  <a href="#about" onclick="document.querySelector('.mobile-nav').classList.remove('open')">About</a>
+  <a href="#skills" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Skills</a>
+  <a href="#services" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Services</a>
+  <a href="#projects" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Projects</a>
+  <a href="#experience" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Experience</a>
+  <a href="#contact" onclick="document.querySelector('.mobile-nav').classList.remove('open')">Contact</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <canvas id="particles-canvas"></canvas>
+
+  <!-- Floating code snippets -->
+  <div class="float-el fe1">agent.run(task="automate")</div>
+  <div class="float-el fe2">model = LLM(provider="gpt-4")</div>
+  <div class="float-el fe3">pipeline.execute(rag=True)</div>
+
+  <!-- Neural net decoration -->
+  <svg class="neural-svg" viewBox="0 0 280 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <!-- Input nodes -->
+    <circle cx="40" cy="80" r="12" stroke="#00C8FF" stroke-width="1.5"/>
+    <circle cx="40" cy="160" r="12" stroke="#00C8FF" stroke-width="1.5"/>
+    <circle cx="40" cy="240" r="12" stroke="#00C8FF" stroke-width="1.5"/>
+    <circle cx="40" cy="320" r="12" stroke="#00C8FF" stroke-width="1.5"/>
+    <!-- Hidden 1 -->
+    <circle cx="120" cy="100" r="12" stroke="#7A5FFF" stroke-width="1.5"/>
+    <circle cx="120" cy="180" r="12" stroke="#7A5FFF" stroke-width="1.5"/>
+    <circle cx="120" cy="260" r="12" stroke="#7A5FFF" stroke-width="1.5"/>
+    <!-- Hidden 2 -->
+    <circle cx="200" cy="130" r="12" stroke="#00FFD1" stroke-width="1.5"/>
+    <circle cx="200" cy="210" r="12" stroke="#00FFD1" stroke-width="1.5"/>
+    <circle cx="200" cy="290" r="12" stroke="#00FFD1" stroke-width="1.5"/>
+    <!-- Output -->
+    <circle cx="260" cy="200" r="14" stroke="#00C8FF" stroke-width="2" fill="rgba(0,200,255,0.1)"/>
+    <!-- Connections -->
+    <line x1="52" y1="80" x2="108" y2="100" stroke="rgba(0,200,255,0.3)" stroke-width="0.8"/>
+    <line x1="52" y1="80" x2="108" y2="180" stroke="rgba(0,200,255,0.3)" stroke-width="0.8"/>
+    <line x1="52" y1="160" x2="108" y2="100" stroke="rgba(0,200,255,0.3)" stroke-width="0.8"/>
+    <line x1="52" y1="160" x2="108" y2="260" stroke="rgba(0,200,255,0.3)" stroke-width="0.8"/>
+    <line x1="52" y1="240" x2="108" y2="180" stroke="rgba(0,200,255,0.3)" stroke-width="0.8"/>
+    <line x1="52" y1="240" x2="108" y2="260" stroke="rgba(0,200,255,0.3)" stroke-width="0.8"/>
+    <line x1="52" y1="320" x2="108" y2="260" stroke="rgba(0,200,255,0.3)" stroke-width="0.8"/>
+    <line x1="132" y1="100" x2="188" y2="130" stroke="rgba(122,95,255,0.3)" stroke-width="0.8"/>
+    <line x1="132" y1="100" x2="188" y2="210" stroke="rgba(122,95,255,0.3)" stroke-width="0.8"/>
+    <line x1="132" y1="180" x2="188" y2="130" stroke="rgba(122,95,255,0.3)" stroke-width="0.8"/>
+    <line x1="132" y1="180" x2="188" y2="290" stroke="rgba(122,95,255,0.3)" stroke-width="0.8"/>
+    <line x1="132" y1="260" x2="188" y2="210" stroke="rgba(122,95,255,0.3)" stroke-width="0.8"/>
+    <line x1="132" y1="260" x2="188" y2="290" stroke="rgba(122,95,255,0.3)" stroke-width="0.8"/>
+    <line x1="212" y1="130" x2="246" y2="200" stroke="rgba(0,255,209,0.4)" stroke-width="1"/>
+    <line x1="212" y1="210" x2="246" y2="200" stroke="rgba(0,255,209,0.4)" stroke-width="1"/>
+    <line x1="212" y1="290" x2="246" y2="200" stroke="rgba(0,255,209,0.4)" stroke-width="1"/>
+  </svg>
+
+  <div class="hero-content">
+    <div class="hero-badge">🚀 Open to Work — AI Engineer & Full Stack Developer</div>
+    <h1 class="hero-title">
+      Building the<br/>
+      <span>Intelligent Future</span>
+    </h1>
+    <div class="hero-roles">
+      <span class="hero-typing" id="typing-text"></span><span class="cursor-blink">|</span>
+    </div>
+    <p class="hero-sub">
+      I build intelligent AI systems, autonomous agents, enterprise automation, scalable web applications, mobile apps, and custom software that transform how businesses operate.
+    </p>
+    <div class="hero-btns">
+      <a href="#projects" class="btn-primary">⚡ View Projects</a>
+      <a href="#contact" class="btn-primary" style="background:linear-gradient(135deg,var(--purple),var(--blue))">💼 Hire Me</a>
+      <a href="#contact" class="btn-secondary">📅 Book Consultation</a>
+      <a href="#" class="btn-secondary" onclick="alert('Resume download — add your PDF link here!')">📄 Download Resume</a>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num">50+</div>
+        <div class="hero-stat-label">Projects Built</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">30+</div>
+        <div class="hero-stat-label">Happy Clients</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">20+</div>
+        <div class="hero-stat-label">AI Models</div>
+      </div>
+      <div class="hero-stat">
+        <div class="hero-stat-num">5+</div>
+        <div class="hero-stat-label">Years Experience</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-left reveal">
+        <div class="about-avatar"><span>🧠</span></div>
+        <div class="about-roles">
+          <span class="role-tag">AI Engineer</span>
+          <span class="role-tag">ML Engineer</span>
+          <span class="role-tag">Full Stack Dev</span>
+          <span class="role-tag">AI Automation</span>
+          <span class="role-tag">Deep Learning</span>
+          <span class="role-tag">Mobile Dev</span>
+        </div>
+      </div>
+      <div class="about-text reveal reveal-delay-1">
+        <span class="section-eyebrow">About Me</span>
+        <div class="divider"></div>
+        <h2 class="section-title">Turning <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">AI Ideas</span><br/>Into Reality</h2>
+        <p>I'm a senior AI Engineer with deep expertise in building production-grade AI systems, LLM-powered applications, autonomous agents, and enterprise automation platforms. I bridge the gap between cutting-edge AI research and real-world business impact.</p>
+        <p>From architecting multi-agent systems with LangGraph and CrewAI, to building RAG pipelines with vector databases, to deploying full-stack AI SaaS products on AWS — I handle the complete lifecycle from prototype to production at scale.</p>
+        <p>My work has helped clients reduce operational costs by 70%, automate thousands of hours of manual work, and build intelligent products that delight their users.</p>
+        <div class="expertise-grid">
+          <div class="expertise-item">AI Agents & Multi-Agent Systems</div>
+          <div class="expertise-item">LLM Engineering & Fine-tuning</div>
+          <div class="expertise-item">RAG Pipelines & Vector DBs</div>
+          <div class="expertise-item">Workflow & Process Automation</div>
+          <div class="expertise-item">Voice AI & Chatbots</div>
+          <div class="expertise-item">Computer Vision & NLP</div>
+          <div class="expertise-item">Full Stack Development</div>
+          <div class="expertise-item">Mobile App Development</div>
+          <div class="expertise-item">Cloud Architecture (AWS/GCP)</div>
+          <div class="expertise-item">Deep Learning Models</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px" class="reveal">
+      <span class="section-eyebrow">Technical Skills</span>
+      <div class="divider" style="margin:12px auto"></div>
+      <h2 class="section-title">The Full <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Tech Stack</span></h2>
+      <p class="section-sub" style="margin:0 auto">From AI research to production deployment — end to end.</p>
+    </div>
+    <div class="skills-categories">
+      <div class="glass-card skill-category reveal">
+        <div class="skill-cat-icon">🤖</div>
+        <div class="skill-cat-title">Artificial Intelligence</div>
+        <div class="skill-tags">
+          <span class="skill-tag">AI Agents</span>
+          <span class="skill-tag">Multi-Agent Systems</span>
+          <span class="skill-tag">LLM Engineering</span>
+          <span class="skill-tag">Prompt Engineering</span>
+          <span class="skill-tag">RAG</span>
+          <span class="skill-tag">LangChain</span>
+          <span class="skill-tag">LangGraph</span>
+          <span class="skill-tag">CrewAI</span>
+          <span class="skill-tag">AutoGen</span>
+          <span class="skill-tag">MCP</span>
+          <span class="skill-tag">Vector DBs</span>
+        </div>
+      </div>
+      <div class="glass-card skill-category reveal reveal-delay-1">
+        <div class="skill-cat-icon">📊</div>
+        <div class="skill-cat-title">Machine Learning</div>
+        <div class="skill-tags">
+          <span class="skill-tag purple">Regression</span>
+          <span class="skill-tag purple">Classification</span>
+          <span class="skill-tag purple">Clustering</span>
+          <span class="skill-tag purple">Reinforcement Learning</span>
+          <span class="skill-tag purple">Feature Engineering</span>
+          <span class="skill-tag purple">Model Evaluation</span>
+          <span class="skill-tag purple">Scikit-learn</span>
+          <span class="skill-tag purple">XGBoost</span>
+        </div>
+      </div>
+      <div class="glass-card skill-category reveal reveal-delay-2">
+        <div class="skill-cat-icon">🧠</div>
+        <div class="skill-cat-title">Deep Learning</div>
+        <div class="skill-tags">
+          <span class="skill-tag cyan">CNN</span>
+          <span class="skill-tag cyan">RNN / LSTM</span>
+          <span class="skill-tag cyan">Transformers</span>
+          <span class="skill-tag cyan">GANs</span>
+          <span class="skill-tag cyan">Diffusion Models</span>
+          <span class="skill-tag cyan">PyTorch</span>
+          <span class="skill-tag cyan">TensorFlow</span>
+          <span class="skill-tag cyan">Hugging Face</span>
+        </div>
+      </div>
+      <div class="glass-card skill-category reveal">
+        <div class="skill-cat-icon">💻</div>
+        <div class="skill-cat-title">Programming</div>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">C++</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">SQL</span>
+          <span class="skill-tag">Bash</span>
+        </div>
+      </div>
+      <div class="glass-card skill-category reveal reveal-delay-1">
+        <div class="skill-cat-icon">⚙️</div>
+        <div class="skill-cat-title">Frameworks</div>
+        <div class="skill-tags">
+          <span class="skill-tag purple">FastAPI</span>
+          <span class="skill-tag purple">Django</span>
+          <span class="skill-tag purple">Flask</span>
+          <span class="skill-tag purple">React</span>
+          <span class="skill-tag purple">Next.js</span>
+          <span class="skill-tag purple">Node.js</span>
+          <span class="skill-tag purple">Express</span>
+          <span class="skill-tag purple">Flutter</span>
+          <span class="skill-tag purple">React Native</span>
+        </div>
+      </div>
+      <div class="glass-card skill-category reveal reveal-delay-2">
+        <div class="skill-cat-icon">☁️</div>
+        <div class="skill-cat-title">Cloud & DevOps</div>
+        <div class="skill-tags">
+          <span class="skill-tag cyan">AWS</span>
+          <span class="skill-tag cyan">Azure</span>
+          <span class="skill-tag cyan">GCP</span>
+          <span class="skill-tag cyan">Docker</span>
+          <span class="skill-tag cyan">Kubernetes</span>
+          <span class="skill-tag cyan">GitHub Actions</span>
+          <span class="skill-tag cyan">CI/CD</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px" class="reveal">
+      <span class="section-eyebrow">What I Build</span>
+      <div class="divider" style="margin:12px auto"></div>
+      <h2 class="section-title">Services & <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Expertise</span></h2>
+    </div>
+    <div class="services-grid">
+      <div class="glass-card service-card reveal">
+        <div class="service-icon">🤖</div>
+        <div class="service-title">AI Agents</div>
+        <div class="service-desc">Autonomous agents that plan, reason, and execute complex multi-step tasks using LangGraph, CrewAI, and AutoGen.</div>
+      </div>
+      <div class="glass-card service-card reveal reveal-delay-1">
+        <div class="service-icon">💬</div>
+        <div class="service-title">AI Chatbots</div>
+        <div class="service-desc">Intelligent customer-facing chatbots with RAG, memory, and multi-channel deployment for any business vertical.</div>
+      </div>
+      <div class="glass-card service-card reveal reveal-delay-2">
+        <div class="service-icon">🎙️</div>
+        <div class="service-title">Voice AI Assistants</div>
+        <div class="service-desc">Real-time AI voice agents with Vapi, ElevenLabs, and Twilio — for sales, support, and enterprise workflows.</div>
+      </div>
+      <div class="glass-card service-card reveal">
+        <div class="service-icon">⚡</div>
+        <div class="service-title">Workflow Automation</div>
+        <div class="service-desc">End-to-end business process automation with n8n, Zapier, Make, and custom AI-powered pipelines.</div>
+      </div>
+      <div class="glass-card service-card reveal reveal-delay-1">
+        <div class="service-icon">🧬</div>
+        <div class="service-title">ML / DL Models</div>
+        <div class="service-desc">Custom machine learning and deep learning models for prediction, classification, and computer vision tasks.</div>
+      </div>
+      <div class="glass-card service-card reveal reveal-delay-2">
+        <div class="service-icon">👁️</div>
+        <div class="service-title">Computer Vision</div>
+        <div class="service-desc">Object detection, image classification, OCR, and real-time video analytics with PyTorch and OpenCV.</div>
+      </div>
+      <div class="glass-card service-card reveal">
+        <div class="service-icon">🚀</div>
+        <div class="service-title">AI SaaS Development</div>
+        <div class="service-desc">Full-stack AI-powered SaaS products from idea to production — React + FastAPI + Cloud + Stripe.</div>
+      </div>
+      <div class="glass-card service-card reveal reveal-delay-1">
+        <div class="service-icon">📱</div>
+        <div class="service-title">Mobile Apps</div>
+        <div class="service-desc">Cross-platform iOS & Android apps with Flutter and React Native, integrated with AI backends.</div>
+      </div>
+      <div class="glass-card service-card reveal reveal-delay-2">
+        <div class="service-icon">🏢</div>
+        <div class="service-title">Enterprise AI Integration</div>
+        <div class="service-desc">Securely integrate AI capabilities into existing enterprise systems, ERPs, and workflows at scale.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px" class="reveal">
+      <span class="section-eyebrow">Portfolio</span>
+      <div class="divider" style="margin:12px auto"></div>
+      <h2 class="section-title">Featured <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Projects</span></h2>
+      <p class="section-sub" style="margin:0 auto">Real-world AI systems built for production.</p>
+    </div>
+    <div class="projects-grid">
+
+      <div class="glass-card project-card reveal">
+        <div class="project-thumb project-thumb-bg1">📞</div>
+        <div class="project-body">
+          <div class="project-metrics">
+            <div class="metric"><div class="metric-val">98%</div><div class="metric-label">Resolution Rate</div></div>
+            <div class="metric"><div class="metric-val">10K+</div><div class="metric-label">Calls Handled</div></div>
+            <div class="metric"><div class="metric-val">3x</div><div class="metric-label">Faster Response</div></div>
+          </div>
+          <div class="project-title">Enterprise AI Call Agent</div>
+          <div class="project-desc">Autonomous voice AI agent that handles inbound/outbound enterprise calls, qualifies leads, and schedules appointments — 24/7 without human intervention.</div>
+          <div class="project-stack">
+            <span class="stack-badge">FastAPI</span>
+            <span class="stack-badge">Vapi.ai</span>
+            <span class="stack-badge">GPT-4o</span>
+            <span class="stack-badge">NeonDB</span>
+            <span class="stack-badge">LangChain</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-btn proj-btn-primary">Live Demo</a>
+            <a href="#" class="proj-btn proj-btn-secondary">GitHub</a>
+            <a href="#" class="proj-btn proj-btn-secondary">Case Study</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card project-card reveal reveal-delay-1">
+        <div class="project-thumb project-thumb-bg2">🛎️</div>
+        <div class="project-body">
+          <div class="project-metrics">
+            <div class="metric"><div class="metric-val">70%</div><div class="metric-label">Cost Reduction</div></div>
+            <div class="metric"><div class="metric-val">24/7</div><div class="metric-label">Availability</div></div>
+            <div class="metric"><div class="metric-val">95%</div><div class="metric-label">CSAT Score</div></div>
+          </div>
+          <div class="project-title">AI Customer Support Platform</div>
+          <div class="project-desc">Multi-channel AI support platform with intelligent ticket routing, RAG-powered knowledge base, and seamless human handoff for enterprise clients.</div>
+          <div class="project-stack">
+            <span class="stack-badge">Next.js</span>
+            <span class="stack-badge">LangGraph</span>
+            <span class="stack-badge">Pinecone</span>
+            <span class="stack-badge">OpenAI</span>
+            <span class="stack-badge">Redis</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-btn proj-btn-primary">Live Demo</a>
+            <a href="#" class="proj-btn proj-btn-secondary">GitHub</a>
+            <a href="#" class="proj-btn proj-btn-secondary">Case Study</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card project-card reveal reveal-delay-2">
+        <div class="project-thumb project-thumb-bg3">🔬</div>
+        <div class="project-body">
+          <div class="project-metrics">
+            <div class="metric"><div class="metric-val">50+</div><div class="metric-label">Sources/Query</div></div>
+            <div class="metric"><div class="metric-val">2min</div><div class="metric-label">Research Time</div></div>
+            <div class="metric"><div class="metric-val">99%</div><div class="metric-label">Uptime</div></div>
+          </div>
+          <div class="project-title">Autonomous AI Research Assistant</div>
+          <div class="project-desc">Multi-agent research system that autonomously browses the web, reads papers, synthesizes information, and generates comprehensive reports.</div>
+          <div class="project-stack">
+            <span class="stack-badge">CrewAI</span>
+            <span class="stack-badge">Claude 3.5</span>
+            <span class="stack-badge">ChromaDB</span>
+            <span class="stack-badge">FastAPI</span>
+            <span class="stack-badge">React</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-btn proj-btn-primary">Live Demo</a>
+            <a href="#" class="proj-btn proj-btn-secondary">GitHub</a>
+            <a href="#" class="proj-btn proj-btn-secondary">Case Study</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card project-card reveal">
+        <div class="project-thumb project-thumb-bg1">👁️</div>
+        <div class="project-body">
+          <div class="project-metrics">
+            <div class="metric"><div class="metric-val">99.2%</div><div class="metric-label">Accuracy</div></div>
+            <div class="metric"><div class="metric-val">&lt;1s</div><div class="metric-label">Analysis Time</div></div>
+            <div class="metric"><div class="metric-val">50+</div><div class="metric-label">Object Types</div></div>
+          </div>
+          <div class="project-title">AI Image Analyzer</div>
+          <div class="project-desc">Advanced computer vision platform for medical imaging, document OCR, product quality inspection, and real-time scene understanding.</div>
+          <div class="project-stack">
+            <span class="stack-badge">PyTorch</span>
+            <span class="stack-badge">GPT-4V</span>
+            <span class="stack-badge">FastAPI</span>
+            <span class="stack-badge">OpenCV</span>
+            <span class="stack-badge">AWS S3</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-btn proj-btn-primary">Live Demo</a>
+            <a href="#" class="proj-btn proj-btn-secondary">GitHub</a>
+            <a href="#" class="proj-btn proj-btn-secondary">Case Study</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card project-card reveal reveal-delay-1">
+        <div class="project-thumb project-thumb-bg2">🏥</div>
+        <div class="project-body">
+          <div class="project-metrics">
+            <div class="metric"><div class="metric-val">HIPAA</div><div class="metric-label">Compliant</div></div>
+            <div class="metric"><div class="metric-val">500+</div><div class="metric-label">Conditions</div></div>
+            <div class="metric"><div class="metric-val">4.9⭐</div><div class="metric-label">User Rating</div></div>
+          </div>
+          <div class="project-title">AI Medical Assistant</div>
+          <div class="project-desc">HIPAA-compliant AI health assistant for symptom analysis, medication reminders, appointment scheduling, and patient intake automation.</div>
+          <div class="project-stack">
+            <span class="stack-badge">LangGraph</span>
+            <span class="stack-badge">GPT-4</span>
+            <span class="stack-badge">PostgreSQL</span>
+            <span class="stack-badge">Flutter</span>
+            <span class="stack-badge">AWS</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-btn proj-btn-primary">Live Demo</a>
+            <a href="#" class="proj-btn proj-btn-secondary">GitHub</a>
+            <a href="#" class="proj-btn proj-btn-secondary">Case Study</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="glass-card project-card reveal reveal-delay-2">
+        <div class="project-thumb project-thumb-bg3">💹</div>
+        <div class="project-body">
+          <div class="project-metrics">
+            <div class="metric"><div class="metric-val">Real-time</div><div class="metric-label">Analytics</div></div>
+            <div class="metric"><div class="metric-val">12+</div><div class="metric-label">Data Sources</div></div>
+            <div class="metric"><div class="metric-val">AI</div><div class="metric-label">Predictions</div></div>
+          </div>
+          <div class="project-title">AI Financial Dashboard</div>
+          <div class="project-desc">Intelligent financial analytics platform with AI-powered market insights, portfolio optimization, anomaly detection, and natural language querying.</div>
+          <div class="project-stack">
+            <span class="stack-badge">Python</span>
+            <span class="stack-badge">LangChain</span>
+            <span class="stack-badge">React</span>
+            <span class="stack-badge">PostgreSQL</span>
+            <span class="stack-badge">Redis</span>
+          </div>
+          <div class="project-links">
+            <a href="#" class="proj-btn proj-btn-primary">Live Demo</a>
+            <a href="#" class="proj-btn proj-btn-secondary">GitHub</a>
+            <a href="#" class="proj-btn proj-btn-secondary">Case Study</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- AI WORKFLOW -->
+<section id="workflow">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px" class="reveal">
+      <span class="section-eyebrow">How It Works</span>
+      <div class="divider" style="margin:12px auto"></div>
+      <h2 class="section-title">AI Agent <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Workflow</span></h2>
+    </div>
+    <div class="workflow-container reveal">
+      <div class="glass-card workflow-node accent">
+        <div class="workflow-node-label">Input</div>
+        <div class="workflow-node-title">👤 User / Business Request</div>
+      </div>
+      <div class="workflow-arrow"><div class="workflow-pulse"></div></div>
+      <div class="glass-card workflow-node">
+        <div class="workflow-node-label">Orchestration</div>
+        <div class="workflow-node-title">🤖 AI Agent (LangGraph / CrewAI)</div>
+      </div>
+      <div class="workflow-arrow"><div class="workflow-pulse" style="animation-delay:-0.5s"></div></div>
+      <div class="glass-card workflow-node">
+        <div class="workflow-node-label">Context</div>
+        <div class="workflow-node-title">🧠 Memory & Context Management</div>
+      </div>
+      <div class="workflow-arrow"><div class="workflow-pulse" style="animation-delay:-1s"></div></div>
+      <div class="glass-card workflow-node">
+        <div class="workflow-node-label">Reasoning</div>
+        <div class="workflow-node-title">⚡ LLM (GPT-4o / Claude / Gemini)</div>
+      </div>
+      <div class="workflow-arrow"><div class="workflow-pulse" style="animation-delay:-1.5s"></div></div>
+      <div class="glass-card workflow-node">
+        <div class="workflow-node-label">Knowledge</div>
+        <div class="workflow-node-title">🗄️ Vector Database (RAG)</div>
+      </div>
+      <div class="workflow-arrow"><div class="workflow-pulse" style="animation-delay:-0.2s"></div></div>
+      <div class="glass-card workflow-node">
+        <div class="workflow-node-label">Execution</div>
+        <div class="workflow-node-title">🔧 Tool Calls & Automation</div>
+      </div>
+      <div class="workflow-arrow"><div class="workflow-pulse" style="animation-delay:-0.7s"></div></div>
+      <div class="glass-card workflow-node">
+        <div class="workflow-node-label">Integration</div>
+        <div class="workflow-node-title">🔗 API & External Services</div>
+      </div>
+      <div class="workflow-arrow"><div class="workflow-pulse" style="animation-delay:-1.2s"></div></div>
+      <div class="glass-card workflow-node accent">
+        <div class="workflow-node-label">Output</div>
+        <div class="workflow-node-title">✅ Intelligent Result Delivered</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section id="experience">
+  <div class="container">
+    <div style="margin-bottom:60px" class="reveal">
+      <span class="section-eyebrow">Journey</span>
+      <div class="divider"></div>
+      <h2 class="section-title">Experience <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Timeline</span></h2>
+    </div>
+    <div class="timeline">
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2019</div>
+        <div class="timeline-title">Started Programming Journey</div>
+        <div class="timeline-desc">Began with Python and JavaScript fundamentals. Built first web applications and fell in love with software development.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2020</div>
+        <div class="timeline-title">Machine Learning & Data Science</div>
+        <div class="timeline-desc">Dived deep into ML with scikit-learn, pandas, and NumPy. Built regression, classification, and clustering models. Completed Andrew Ng's ML specialization.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2021</div>
+        <div class="timeline-title">Deep Learning Engineering</div>
+        <div class="timeline-desc">Mastered CNNs, RNNs, Transformers with PyTorch and TensorFlow. Built image classification and NLP models. Started contributing to open-source AI projects.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2022</div>
+        <div class="timeline-title">Full Stack Development & APIs</div>
+        <div class="timeline-desc">Built production-grade full-stack apps with React, Next.js, FastAPI, Node.js. Mastered cloud deployment with AWS, Docker, and Kubernetes.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2023</div>
+        <div class="timeline-title">LLM Engineering & AI Agents</div>
+        <div class="timeline-desc">Rode the wave of ChatGPT's release. Built RAG systems, fine-tuned LLMs, and architected multi-agent systems with LangChain, LangGraph, and CrewAI.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot"></div>
+        <div class="timeline-year">2024</div>
+        <div class="timeline-title">Enterprise AI & Automation</div>
+        <div class="timeline-desc">Delivered 20+ enterprise AI projects. Specialized in voice AI, business process automation, and AI SaaS products. Built systems saving clients 10,000+ hours annually.</div>
+      </div>
+      <div class="timeline-item reveal">
+        <div class="timeline-dot" style="background:linear-gradient(135deg,var(--cyan),var(--blue));box-shadow:0 0 16px rgba(0,255,209,0.6)"></div>
+        <div class="timeline-year" style="color:var(--cyan)">2025 — Now</div>
+        <div class="timeline-title">Senior AI Engineer & Founder</div>
+        <div class="timeline-desc">Leading AI strategy for startups and enterprises. Pioneering agentic AI systems, autonomous workflows, and the next generation of intelligent software products.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK MARQUEE -->
+<section id="techstack">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:48px" class="reveal">
+      <span class="section-eyebrow">Technologies</span>
+      <div class="divider" style="margin:12px auto"></div>
+      <h2 class="section-title">Tools I <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Work With</span></h2>
+    </div>
+  </div>
+  <div class="tech-marquee-wrapper reveal">
+    <div class="tech-marquee" id="marquee1">
+      <div class="tech-chip"><span class="tech-chip-icon">🐍</span>Python</div>
+      <div class="tech-chip"><span class="tech-chip-icon">⚛️</span>React</div>
+      <div class="tech-chip"><span class="tech-chip-icon">▲</span>Next.js</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🚀</span>FastAPI</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🔥</span>PyTorch</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🧠</span>TensorFlow</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🦜</span>LangChain</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🤖</span>OpenAI</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🐳</span>Docker</div>
+      <div class="tech-chip"><span class="tech-chip-icon">☁️</span>AWS</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🍃</span>MongoDB</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🐘</span>PostgreSQL</div>
+      <!-- Duplicate for seamless loop -->
+      <div class="tech-chip"><span class="tech-chip-icon">🐍</span>Python</div>
+      <div class="tech-chip"><span class="tech-chip-icon">⚛️</span>React</div>
+      <div class="tech-chip"><span class="tech-chip-icon">▲</span>Next.js</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🚀</span>FastAPI</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🔥</span>PyTorch</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🧠</span>TensorFlow</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🦜</span>LangChain</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🤖</span>OpenAI</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🐳</span>Docker</div>
+      <div class="tech-chip"><span class="tech-chip-icon">☁️</span>AWS</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🍃</span>MongoDB</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🐘</span>PostgreSQL</div>
+    </div>
+    <div class="tech-marquee tech-marquee2">
+      <div class="tech-chip"><span class="tech-chip-icon">👥</span>CrewAI</div>
+      <div class="tech-chip"><span class="tech-chip-icon">📌</span>Pinecone</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🔴</span>Redis</div>
+      <div class="tech-chip"><span class="tech-chip-icon">⚡</span>Kubernetes</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🤗</span>HuggingFace</div>
+      <div class="tech-chip"><span class="tech-chip-icon">📱</span>Flutter</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🌊</span>LangGraph</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🗣️</span>Vapi.ai</div>
+      <div class="tech-chip"><span class="tech-chip-icon">💙</span>TypeScript</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🐙</span>GitHub</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🎯</span>Node.js</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🌐</span>GraphQL</div>
+      <div class="tech-chip"><span class="tech-chip-icon">👥</span>CrewAI</div>
+      <div class="tech-chip"><span class="tech-chip-icon">📌</span>Pinecone</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🔴</span>Redis</div>
+      <div class="tech-chip"><span class="tech-chip-icon">⚡</span>Kubernetes</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🤗</span>HuggingFace</div>
+      <div class="tech-chip"><span class="tech-chip-icon">📱</span>Flutter</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🌊</span>LangGraph</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🗣️</span>Vapi.ai</div>
+      <div class="tech-chip"><span class="tech-chip-icon">💙</span>TypeScript</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🐙</span>GitHub</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🎯</span>Node.js</div>
+      <div class="tech-chip"><span class="tech-chip-icon">🌐</span>GraphQL</div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px" class="reveal">
+      <span class="section-eyebrow">Social Proof</span>
+      <div class="divider" style="margin:12px auto"></div>
+      <h2 class="section-title">Client <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Testimonials</span></h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="glass-card testimonial-card reveal">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"Exceptional AI engineering talent. Built our entire voice AI call center system from scratch in 6 weeks. The system now handles 10,000+ calls monthly with 98% resolution rate. Absolutely transformed our operations."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar">JM</div>
+          <div>
+            <div class="testimonial-name">James Mitchell</div>
+            <div class="testimonial-role">CTO, TechVentures Inc.</div>
+          </div>
+        </div>
+      </div>
+      <div class="glass-card testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"We hired for an AI customer support platform and got so much more. The RAG pipeline they built is incredibly accurate and the multi-agent architecture scales beautifully. Saved us $2M in annual support costs."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--purple),var(--cyan))">SR</div>
+          <div>
+            <div class="testimonial-name">Sarah Rodriguez</div>
+            <div class="testimonial-role">VP Product, ScaleUp SaaS</div>
+          </div>
+        </div>
+      </div>
+      <div class="glass-card testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-stars">★★★★★</div>
+        <div class="testimonial-text">"The AI automation system built for our logistics company processes 50,000 shipments daily without human review. The accuracy is 99.8%. We've cut manual processing time by 90% and scaled 5x in 3 months."</div>
+        <div class="testimonial-author">
+          <div class="testimonial-avatar" style="background:linear-gradient(135deg,var(--cyan),var(--blue))">AK</div>
+          <div>
+            <div class="testimonial-name">Ahmed Khan</div>
+            <div class="testimonial-role">CEO, LogiFlow Systems</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px" class="reveal">
+      <span class="section-eyebrow">By The Numbers</span>
+      <div class="divider" style="margin:12px auto"></div>
+      <h2 class="section-title">Impact & <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Achievements</span></h2>
+    </div>
+    <div class="achievements-grid">
+      <div class="glass-card achievement-card reveal">
+        <span class="achievement-num" data-target="50">0</span>
+        <div class="achievement-label">Projects Completed</div>
+      </div>
+      <div class="glass-card achievement-card reveal reveal-delay-1">
+        <span class="achievement-num" data-target="30">0</span>
+        <div class="achievement-label">Happy Clients</div>
+      </div>
+      <div class="glass-card achievement-card reveal reveal-delay-2">
+        <span class="achievement-num" data-target="20">0</span>
+        <div class="achievement-label">AI Models Built</div>
+      </div>
+      <div class="glass-card achievement-card reveal">
+        <span class="achievement-num" data-target="100">0</span>
+        <div class="achievement-label">Automations Created</div>
+      </div>
+      <div class="glass-card achievement-card reveal reveal-delay-1">
+        <span class="achievement-num" data-target="10000">0</span>
+        <div class="achievement-label">Hours Saved</div>
+      </div>
+      <div class="glass-card achievement-card reveal reveal-delay-2">
+        <span class="achievement-num" data-target="500">0</span>
+        <div class="achievement-label">GitHub Contributions</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GITHUB -->
+<section id="github">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px" class="reveal">
+      <span class="section-eyebrow">Open Source</span>
+      <div class="divider" style="margin:12px auto"></div>
+      <h2 class="section-title">GitHub <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Activity</span></h2>
+    </div>
+    <div class="github-grid reveal">
+      <div class="glass-card github-stat">
+        <div class="github-stat-num">500+</div>
+        <div class="github-stat-label">⭐ GitHub Stars</div>
+      </div>
+      <div class="glass-card github-stat">
+        <div class="github-stat-num">80+</div>
+        <div class="github-stat-label">📦 Repositories</div>
+      </div>
+      <div class="glass-card github-stat">
+        <div class="github-stat-num">2,400+</div>
+        <div class="github-stat-label">💻 Commits</div>
+      </div>
+      <div class="glass-card github-stat">
+        <div class="github-stat-num">200+</div>
+        <div class="github-stat-label">👥 Followers</div>
+      </div>
+    </div>
+    <div class="contrib-graph reveal">
+      <div class="contrib-title">📈 Contribution Activity — Past Year</div>
+      <div class="contrib-cells" id="contrib-cells"></div>
+    </div>
+  </div>
+</section>
+
+<!-- BLOG -->
+<section id="blog">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px" class="reveal">
+      <span class="section-eyebrow">Insights</span>
+      <div class="divider" style="margin:12px auto"></div>
+      <h2 class="section-title">Latest <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Articles</span></h2>
+    </div>
+    <div class="blog-grid">
+      <div class="glass-card blog-card reveal">
+        <div class="blog-header blog-bg1">🤖</div>
+        <div class="blog-body">
+          <span class="blog-tag">AI Agents</span>
+          <div class="blog-title">Building Production-Ready Multi-Agent Systems with LangGraph</div>
+          <div class="blog-excerpt">A deep dive into architecting robust agent orchestration systems, handling failures gracefully, and scaling to enterprise workloads.</div>
+          <div class="blog-meta"><span>Jun 2025</span><span>12 min read</span></div>
+          <a href="#" class="blog-read-more">Read Article →</a>
+        </div>
+      </div>
+      <div class="glass-card blog-card reveal reveal-delay-1">
+        <div class="blog-header blog-bg2">⚡</div>
+        <div class="blog-body">
+          <span class="blog-tag">RAG</span>
+          <div class="blog-title">Advanced RAG Patterns: Beyond Naive Chunking</div>
+          <div class="blog-excerpt">Explore hierarchical RAG, hybrid search, re-ranking, and contextual compression techniques that dramatically improve retrieval quality.</div>
+          <div class="blog-meta"><span>May 2025</span><span>10 min read</span></div>
+          <a href="#" class="blog-read-more">Read Article →</a>
+        </div>
+      </div>
+      <div class="glass-card blog-card reveal reveal-delay-2">
+        <div class="blog-header blog-bg3">🎙️</div>
+        <div class="blog-body">
+          <span class="blog-tag">Voice AI</span>
+          <div class="blog-title">Voice AI in 2025: Building Real-Time Conversational Agents</div>
+          <div class="blog-excerpt">How to build sub-200ms latency voice AI systems using Vapi, ElevenLabs, and custom LLM backends for enterprise-grade reliability.</div>
+          <div class="blog-meta"><span>Apr 2025</span><span>8 min read</span></div>
+          <a href="#" class="blog-read-more">Read Article →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:60px" class="reveal">
+      <span class="section-eyebrow">Get In Touch</span>
+      <div class="divider" style="margin:12px auto"></div>
+      <h2 class="section-title">Let's Build Something <span style="background:linear-gradient(135deg,var(--blue),var(--purple));-webkit-background-clip:text;-webkit-text-fill-color:transparent">Incredible</span></h2>
+      <p class="section-sub" style="margin:0 auto">Have an AI project in mind? I'm currently available for freelance projects, consulting, and full-time opportunities.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="reveal">
+        <div class="contact-info-item">
+          <div class="contact-icon">📧</div>
+          <div>
+            <div class="contact-info-label">Email</div>
+            <div class="contact-info-value">hello@aiengineer.dev</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">💬</div>
+          <div>
+            <div class="contact-info-label">WhatsApp</div>
+            <div class="contact-info-value">+1 (555) 000-0000</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">📍</div>
+          <div>
+            <div class="contact-info-label">Location</div>
+            <div class="contact-info-value">Remote — Worldwide</div>
+          </div>
+        </div>
+        <div class="contact-info-item">
+          <div class="contact-icon">⏰</div>
+          <div>
+            <div class="contact-info-label">Response Time</div>
+            <div class="contact-info-value">Within 24 hours</div>
+          </div>
+        </div>
+        <div style="margin-top:32px">
+          <div style="font-size:0.78rem;color:var(--text-muted);margin-bottom:14px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase">Connect With Me</div>
+          <div class="footer-socials">
+            <a href="#" class="social-btn" title="GitHub">🐙</a>
+            <a href="#" class="social-btn" title="LinkedIn">💼</a>
+            <a href="#" class="social-btn" title="Twitter/X">𝕏</a>
+            <a href="#" class="social-btn" title="WhatsApp">💬</a>
+          </div>
+        </div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div class="contact-form">
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label">Your Name *</label>
+              <input class="form-input" type="text" id="f-name" placeholder="John Doe" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Email Address *</label>
+              <input class="form-input" type="email" id="f-email" placeholder="john@company.com" />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label">Company</label>
+              <input class="form-input" type="text" id="f-company" placeholder="Acme Corp" />
+            </div>
+            <div class="form-field">
+              <label class="form-label">Project Type *</label>
+              <select class="form-select" id="f-type">
+                <option value="">Select type...</option>
+                <option>AI Agent / Automation</option>
+                <option>LLM Application / Chatbot</option>
+                <option>Voice AI Assistant</option>
+                <option>ML / Deep Learning Model</option>
+                <option>Full Stack AI Product</option>
+                <option>Mobile App</option>
+                <option>Enterprise AI Integration</option>
+                <option>Consulting / Advisory</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-field">
+              <label class="form-label">Budget Range</label>
+              <select class="form-select" id="f-budget">
+                <option value="">Select budget...</option>
+                <option>$1K – $5K</option>
+                <option>$5K – $15K</option>
+                <option>$15K – $50K</option>
+                <option>$50K+</option>
+                <option>Open to discuss</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label class="form-label">Timeline</label>
+              <select class="form-select" id="f-timeline">
+                <option value="">Select timeline...</option>
+                <option>ASAP (1-2 weeks)</option>
+                <option>1 Month</option>
+                <option>2-3 Months</option>
+                <option>3+ Months</option>
+                <option>Ongoing partnership</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-field">
+            <label class="form-label">Project Description *</label>
+            <textarea class="form-textarea" id="f-message" placeholder="Tell me about your project — what problem are you solving, what's your vision, and what does success look like?"></textarea>
+          </div>
+          <div class="form-btns">
+            <button class="btn-primary" onclick="submitForm()" style="flex:1">🚀 Send Message</button>
+            <button class="btn-secondary" onclick="alert('Calendly link — add your booking link here!')">📅 Book Meeting</button>
+          </div>
+          <div class="success-msg" id="success-msg">✅ Message sent! I'll get back to you within 24 hours.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-top">
+      <div>
+        <div class="footer-brand-name">AI.Engineer</div>
+        <div class="footer-tagline">Building intelligent AI systems, autonomous agents, and enterprise automation that transforms businesses.</div>
+        <div class="footer-socials" style="margin-top:20px">
+          <a href="#" class="social-btn" title="GitHub">🐙</a>
+          <a href="#" class="social-btn" title="LinkedIn">💼</a>
+          <a href="#" class="social-btn" title="Twitter/X">𝕏</a>
+          <a href="#" class="social-btn" title="Email">📧</a>
+          <a href="#" class="social-btn" title="WhatsApp">💬</a>
+        </div>
+      </div>
+      <div class="footer-links">
+        <h4>Navigation</h4>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#services">Services</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+      </div>
+      <div class="footer-links">
+        <h4>Services</h4>
+        <a href="#services">AI Agents</a>
+        <a href="#services">LLM Apps</a>
+        <a href="#services">Voice AI</a>
+        <a href="#services">Automation</a>
+        <a href="#services">Full Stack</a>
+      </div>
+      <div class="footer-links">
+        <h4>Resources</h4>
+        <a href="#blog">Blog</a>
+        <a href="#github">GitHub</a>
+        <a href="#">Resume</a>
+        <a href="#contact">Contact</a>
+        <a href="#contact">Hire Me</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2025 AI Engineer. All rights reserved.</div>
+      <div class="footer-made">Built with <span>♥</span> and a lot of <span>AI</span></div>
+    </div>
+  </div>
+</footer>
+
+<!-- BACK TO TOP -->
+<button id="back-top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ── LOADER ──
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.getElementById('loader').classList.add('hidden');
+  }, 2000);
+});
+
+// ── CURSOR ──
+const cursor = document.getElementById('cursor');
+const cursorGlow = document.getElementById('cursor-glow');
+let mouseX = 0, mouseY = 0;
+document.addEventListener('mousemove', e => {
+  mouseX = e.clientX; mouseY = e.clientY;
+  cursor.style.left = mouseX + 'px'; cursor.style.top = mouseY + 'px';
+  cursorGlow.style.left = mouseX + 'px'; cursorGlow.style.top = mouseY + 'px';
+});
+document.querySelectorAll('a, button, .glass-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.width = '36px'; cursor.style.height = '36px';
+    cursor.style.borderColor = 'var(--purple)';
+  });
+  el.addEventListener('mouseleave', () => {
+    cursor.style.width = '20px'; cursor.style.height = '20px';
+    cursor.style.borderColor = 'var(--blue)';
+  });
+});
+
+// ── PARTICLES ──
+const canvas = document.getElementById('particles-canvas');
+const ctx = canvas.getContext('2d');
+let W, H, particles = [];
+function resizeCanvas() {
+  W = canvas.width = window.innerWidth;
+  H = canvas.height = document.getElementById('hero').offsetHeight;
+}
+function createParticle() {
+  return {
+    x: Math.random() * W, y: Math.random() * H,
+    vx: (Math.random() - 0.5) * 0.4, vy: (Math.random() - 0.5) * 0.4,
+    r: Math.random() * 1.5 + 0.5,
+    alpha: Math.random() * 0.4 + 0.1,
+    color: Math.random() > 0.5 ? '0,200,255' : '122,95,255'
+  };
+}
+function initParticles() {
+  particles = [];
+  for (let i = 0; i < 120; i++) particles.push(createParticle());
+}
+function drawParticles() {
+  ctx.clearRect(0, 0, W, H);
+  particles.forEach(p => {
+    p.x += p.vx; p.y += p.vy;
+    if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+    if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+    ctx.fillStyle = `rgba(${p.color},${p.alpha})`;
+    ctx.fill();
+  });
+  // Connect nearby
+  for (let i = 0; i < particles.length; i++) {
+    for (let j = i + 1; j < particles.length; j++) {
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if (dist < 100) {
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0,200,255,${0.08 * (1 - dist / 100)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(drawParticles);
+}
+resizeCanvas(); initParticles(); drawParticles();
+window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
+
+// ── TYPING EFFECT ──
+const phrases = [
+  'AI Engineer • Automation Expert',
+  'LLM Engineer • Prompt Architect',
+  'Full Stack Developer • DevOps',
+  'Multi-Agent System Builder',
+  'Voice AI & Chatbot Specialist',
+];
+let pIdx = 0, cIdx = 0, deleting = false;
+const typingEl = document.getElementById('typing-text');
+function type() {
+  const phrase = phrases[pIdx];
+  if (deleting) {
+    typingEl.textContent = phrase.slice(0, cIdx--);
+    if (cIdx < 0) { deleting = false; pIdx = (pIdx + 1) % phrases.length; setTimeout(type, 500); return; }
+  } else {
+    typingEl.textContent = phrase.slice(0, cIdx++);
+    if (cIdx > phrase.length) { deleting = true; setTimeout(type, 2000); return; }
+  }
+  setTimeout(type, deleting ? 40 : 80);
+}
+setTimeout(type, 1000);
+
+// ── NAV SCROLL ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 60);
+  document.getElementById('back-top').classList.toggle('visible', window.scrollY > 400);
+});
+
+// ── REVEAL ON SCROLL ──
+const revealEls = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.1 });
+revealEls.forEach(el => observer.observe(el));
+
+// ── COUNTER ANIMATION ──
+function animateCounter(el, target) {
+  let start = 0;
+  const step = target / 60;
+  const timer = setInterval(() => {
+    start += step;
+    if (start >= target) { el.textContent = target >= 1000 ? target.toLocaleString() + '+' : target + '+'; clearInterval(timer); return; }
+    el.textContent = Math.floor(start) + (target >= 1000 ? '+' : '+');
+  }, 25);
+}
+const counterObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const target = parseInt(e.target.dataset.target);
+      animateCounter(e.target, target);
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-target]').forEach(el => counterObserver.observe(el));
+
+// ── CONTRIBUTION GRAPH ──
+function buildContribGraph() {
+  const container = document.getElementById('contrib-cells');
+  const levels = [0,0,0,1,1,2,2,3,4];
+  for (let i = 0; i < 53 * 7; i++) {
+    const cell = document.createElement('div');
+    const level = levels[Math.floor(Math.random() * levels.length)];
+    cell.className = 'contrib-cell' + (level > 0 ? ` l${level}` : '');
+    container.appendChild(cell);
+  }
+}
+buildContribGraph();
+
+// ── CONTACT FORM ──
+function submitForm() {
+  const name = document.getElementById('f-name').value;
+  const email = document.getElementById('f-email').value;
+  const msg = document.getElementById('f-message').value;
+  if (!name || !email || !msg) { alert('Please fill in the required fields.'); return; }
+  document.getElementById('success-msg').style.display = 'block';
+  setTimeout(() => document.getElementById('success-msg').style.display = 'none', 5000);
+}
+
+// ── SMOOTH SECTION REVEAL ──
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', e => {
+    const href = anchor.getAttribute('href');
+    if (href === '#') return;
+    e.preventDefault();
+    const target = document.querySelector(href);
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+</script>
+</body>
+</html>
